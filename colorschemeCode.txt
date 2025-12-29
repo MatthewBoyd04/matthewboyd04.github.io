@@ -1,0 +1,12 @@
+Greyscale (Base)
+#0F1117 - Midnight Charcoal - BG
+#1A1D24 - Slate Graphite - Cards, Navbars, Code Blocks
+#2A2F3A - Steel Grey - Borders, Divideres, Subtle UI Seperation
+#C9CCD6 - Soft Ash - Primary Body Text
+#E6E8EE - Frost Grey - Headings / High Contrast Text
+
+Blue Accents:
+#3B82F6 - Electric Blue - Primary Buttons
+#60A5FA - Muted Sky Blue - Hover States, Icons, Secondary Highlights
+
+Purple Accents:
