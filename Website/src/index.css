@@ -1,0 +1,60 @@
+.btn-primary {
+  background-color: #8a2a8a !important;
+  border-color: #8a2a8a !important;
+}
+
+.btn-primary:hover {
+  background-color: #6a2a6a !important;
+  border-color: #6a1a6a !important;
+}
+
+.bg-primary {
+  background-color: #A030A0 !important;
+}
+
+.bg-primary-footer {
+  background-color: #7a2a7a!important;
+}
+
+p{
+    color:white !important;
+}
+
+h1{
+    color:white !important;
+}
+
+h2{
+    color:white !important;
+}
+
+h3{
+    color:white !important;
+}
+
+h4{
+    color:white !important;
+}
+
+h5{
+    color:white !important;
+}
+
+h6{
+    color:white !important;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+#root > div {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+footer {
+  margin-top: auto;
+}
