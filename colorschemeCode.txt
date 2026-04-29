@@ -1,12 +1,35 @@
-Greyscale (Base)
-#0F1117 - Midnight Charcoal - BG
-#1A1D24 - Slate Graphite - Cards, Navbars, Code Blocks
-#2A2F3A - Steel Grey - Borders, Divideres, Subtle UI Seperation
-#C9CCD6 - Soft Ash - Primary Body Text
-#E6E8EE - Frost Grey - Headings / High Contrast Text
+========================================
+COLOUR SCHEME — Matthew Boyd Portfolio
+========================================
 
-Blue Accents:
-#3B82F6 - Electric Blue - Primary Buttons
-#60A5FA - Muted Sky Blue - Hover States, Icons, Secondary Highlights
+--- Greyscale (Base) ---
+#0F1117  Midnight Charcoal   Background
+#1A1D24  Slate Graphite      Cards, Navbars, Code Blocks
+#2A2F3A  Steel Grey          Borders, Dividers, Subtle UI Separation
+#3D4455  Cool Slate          Inactive elements, muted UI
+#C9CCD6  Soft Ash            Primary Body Text
+#E6E8EE  Frost Grey          Headings / High Contrast Text
 
-Purple Accents:
+--- Purple Family ---
+#3B0764  Midnight Purple     Deep accent backgrounds, dark overlays
+#6D28D9  Rich Violet         Strong accent, Misc tags, section markers
+#8B5CF6  Neon Violet         Primary accent — Language tags, CTAs, highlights
+#A78BFA  Soft Lavender       Secondary accent — gradients, section dividers
+#C4B5FD  Pale Violet         Hover states, light accents, subtle tints
+
+--- Pink Family ---
+#9D174D  Deep Magenta        Bold/urgent highlights, strong CTA backgrounds
+#DB2777  Hot Magenta         Vivid pink accent for emphasis
+#EC4899  Vibrant Pink        Framework tags, feature badges, active states
+#F472B6  Soft Rose           Hover states, gentle pink highlights
+#FBCFE8  Blush               Very subtle pink tints, background washes
+
+--- Recommended Tag Colours ---
+Languages  (TypeScript, JavaScript, Python)   →  #8B5CF6  Neon Violet
+Frameworks (React, FastAPI, Bootstrap)        →  #EC4899  Vibrant Pink
+Misc       (Cloudflare, Git, Vite, etc.)      →  #6D28D9  Rich Violet
+
+--- Gradient Combos ---
+Purple → Pink (hero/feature):   #8B5CF6 → #EC4899
+Dark → Violet (card accent):    #1A1D24 → #3B0764
+Violet → Lavender (subtle):     #6D28D9 → #A78BFA

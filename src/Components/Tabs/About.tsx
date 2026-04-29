@@ -1,10 +1,246 @@
-const About = () => {
-  return (
-    <div>
-      <h1>About Me:</h1> 
-      <p>Matt is a chad with a big cock</p>
-    </div>
-  )
+import { getTagColor } from "../tagColors";
+
+const CARD_STYLE = {
+  backgroundColor: "#1A1D24",
+  border: "2px solid #2A2F3A",
+  borderRadius: "12px",
+};
+
+const HEADING_COLOR = { color: "#E6E8EE" };
+const BODY_COLOR = { color: "#C9CCD6" };
+const ACCENT = "#8B5CF6";
+
+interface ExperienceEntry {
+  title: string;
+  company: string;
+  dates: string;
+  upcoming?: boolean;
+  bullets: string[];
+  tags: string[];
 }
 
-export default About
+const EXPERIENCE: ExperienceEntry[] = [
+  {
+    title: "L4 Software Developer",
+    company: "Amazon",
+    dates: "August 2026 (Upcoming)",
+    upcoming: true,
+    bullets: ["Starting as an L4 Software Developer at Amazon in August 2026."],
+    tags: ["C++", "TypeScript"],
+  },
+  {
+    title: "Part-Time Junior Developer",
+    company: "Digital CNC",
+    dates: "October 2025 – Present",
+    bullets: [
+      "Improving user experience via enhancements to tools utilising 3D graphics knowledge acquired at university.",
+      "Working within a small team in a fast-paced, ever-changing environment.",
+    ],
+    tags: ["C#", ".NET", "WPF", "CI/CD", "3D Graphics"],
+  },
+  {
+    title: "Software Developer Intern",
+    company: "Amazon",
+    dates: "Summer 2025",
+    bullets: [
+      "Worked with the Prime Video & Studios Living Room foundation team.",
+      "Developed a diagnostic system to improve network error visibility during Prime Video bootstrap, enhancing issue identification on Living Room devices.",
+      "Designed and implemented a lightweight, customer-facing diagnostics interface reportable via customer service channels — benefiting an estimated 1 million Prime Video users.",
+      "Improved both customer experience and internal debugging workflows, reducing mean time to resolution (MTTR) for bootstrap-related errors.",
+    ],
+    tags: ["C++", "TypeScript", "JavaScript", "Networking", "CI/CD"],
+  },
+  {
+    title: "Part-Time Software Developer Intern",
+    company: "Digital CNC",
+    dates: "March 2024",
+    bullets: [
+      "Created a tool to export program data to PDF.",
+      "Worked within an incredibly small team at a new start-up.",
+    ],
+    tags: ["C#", ".NET", "OOP"],
+  },
+  {
+    title: "Summer Researcher",
+    company: "RAMS Lab, University of Sheffield",
+    dates: "Summer 2024",
+    bullets: [
+      "Developed software to run a CNC machine and a reinforcement learning algorithm to tune its PID controller.",
+      "Preliminary results show 0.09% error whilst being up to 3× faster than other common methods.",
+      "Research continued by myself and a team, concluding before the end of 2025.",
+    ],
+    tags: ["C++", "MATLAB", "Python", "Reinforcement Learning"],
+  },
+];
+
+const OTHER_PROJECTS = [
+  { name: "Brakeys Game Jam 2025.1 Entry", detail: "Platformer game", tech: "Unity, C#", year: "2025" },
+  { name: "Stock Tracker & ML Trading Bot", detail: "In development", tech: "C# .NET", year: "2025" },
+  { name: "Face ID Burglary Alarm", detail: "Group university project", tech: "MATLAB, C++", year: "2023–24" },
+  { name: "Notion → Google Calendar Bot", detail: "Personal automation tool", tech: "Python", year: "2024" },
+  { name: "Closed-Loop CNC via RL", detail: "Tuned with reinforcement learning", tech: "C++, MATLAB, Python", year: "2024" },
+  { name: "Chess Game", detail: "In development", tech: "Python", year: "2024" },
+  { name: "Mobile Robot", detail: "Group project", tech: "C++", year: "2023/24" },
+  { name: "Mastermind Terminal Game", detail: "", tech: "C", year: "2022" },
+  { name: "Platformer with Custom Physics Engine", detail: "", tech: "C# .NET", year: "2021/22" },
+  { name: "Password Generator & Manager", detail: "", tech: "C# .NET", year: "2018" },
+  { name: "AWS DeepRacer ML Competition", detail: "", tech: "Python", year: "2017" },
+];
+
+const EXTRACURRICULARS = [
+  { role: "Health & Safety Co-Ordinator", org: "RAMS Lab, University of Sheffield", dates: "2025–Present" },
+  { role: "CNC Software Lead", org: "RAMS Lab, University of Sheffield", dates: "2024–Present" },
+  { role: "Undergraduate Research Assistant", org: "RAMS Lab, University of Sheffield", dates: "2023–Present" },
+  { role: "Health + Safety Manager", org: "Roboteers Society, University of Sheffield", dates: "2023–2025" },
+  { role: "Social Secretary", org: "Roboteers Society, University of Sheffield", dates: "2023" },
+  { role: "JP Morgan Virtual Work Experience – Software Development", org: "JP Morgan", dates: "2021" },
+];
+
+function SectionHeading({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="d-flex align-items-center gap-3 mb-4">
+      <h2 className="mb-0 fw-bold" style={HEADING_COLOR}>{children}</h2>
+      <div style={{ flex: 1, height: "2px", backgroundColor: "#2A2F3A" }} />
+    </div>
+  );
+}
+
+function About() {
+  return (
+    <div className="container py-5" style={{ maxWidth: "900px" }}>
+
+      {/* Summary */}
+      <div className="mb-5">
+        <h1 className="fw-bold mb-1" style={HEADING_COLOR}>Matthew Boyd</h1>
+        <h5 className="mb-3" style={{ color: ACCENT }}>Software Developer</h5>
+        <p style={BODY_COLOR}>
+          I'm a fourth-year MEng Computer Systems Engineering student at the University of Sheffield,
+          graduating in 2026 with a dissertation in Multi-Agent Reinforcement Learning. I currently work as
+          CNC Software Lead in the Robotics and Autonomous Manufacturing Systems (RAMS) Lab. I'm joining
+          Amazon as an <strong style={{ color: ACCENT }}>L4 Software Developer in August 2026</strong>, building
+          on previous experience as an SDE Intern at Amazon and a Junior Developer at Digital CNC. My interests
+          span software development, AI, robotics, and building tools that actually solve real problems.
+        </p>
+      </div>
+
+      {/* Education */}
+      <section className="mb-5">
+        <SectionHeading>Education</SectionHeading>
+        <div className="d-flex flex-column gap-3">
+          <div className="p-4" style={{ ...CARD_STYLE, borderLeft: `4px solid ${ACCENT}` }}>
+            <div className="d-flex justify-content-between align-items-start flex-wrap gap-2">
+              <div>
+                <h5 className="mb-0 fw-semibold" style={HEADING_COLOR}>MEng Computer Systems Engineering</h5>
+                <p className="mb-0" style={{ color: ACCENT }}>University of Sheffield</p>
+              </div>
+              <span className="text-end" style={{ color: "#C9CCD6", fontSize: "0.9rem" }}>2022 – 2026</span>
+            </div>
+            <p className="mt-2 mb-0" style={{ ...BODY_COLOR, fontSize: "0.9rem" }}>
+              1:1 — 72% (2nd Year) | 75.6% (3rd Year) · Dissertation: Multi-Agent Reinforcement Learning for Search and Rescue
+            </p>
+          </div>
+          <div className="p-4" style={{ ...CARD_STYLE, borderLeft: `4px solid ${ACCENT}` }}>
+            <div className="d-flex justify-content-between align-items-start flex-wrap gap-2">
+              <div>
+                <h5 className="mb-0 fw-semibold" style={HEADING_COLOR}>A-Levels: Maths, Computer Science, Product Design</h5>
+                <p className="mb-0" style={{ color: ACCENT }}>Garth Hill College</p>
+              </div>
+              <span className="text-end" style={{ color: "#C9CCD6", fontSize: "0.9rem" }}>2020 – 2022</span>
+            </div>
+            <p className="mt-2 mb-0" style={{ ...BODY_COLOR, fontSize: "0.9rem" }}>A, A, A* respectively</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Experience */}
+      <section className="mb-5">
+        <SectionHeading>Experience</SectionHeading>
+        <div className="d-flex flex-column gap-3">
+          {EXPERIENCE.map((role) => (
+            <div
+              key={`${role.company}-${role.dates}`}
+              className="p-4"
+              style={{
+                ...CARD_STYLE,
+                borderLeft: `4px solid ${role.upcoming ? "#22C55E" : ACCENT}`,
+              }}
+            >
+              <div className="d-flex justify-content-between align-items-start flex-wrap gap-2 mb-2">
+                <div>
+                  <h5 className="mb-0 fw-semibold" style={HEADING_COLOR}>{role.title}</h5>
+                  <p className="mb-0" style={{ color: role.upcoming ? "#22C55E" : ACCENT }}>{role.company}</p>
+                </div>
+                <span style={{ color: "#C9CCD6", fontSize: "0.9rem", whiteSpace: "nowrap" }}>{role.dates}</span>
+              </div>
+              <ul className="mb-2 ps-3" style={{ ...BODY_COLOR, fontSize: "0.9rem" }}>
+                {role.bullets.map((b) => <li key={b}>{b}</li>)}
+              </ul>
+              <div className="d-flex flex-wrap gap-1 mt-2">
+                {role.tags.map((tag) => (
+                  <span key={tag} className="badge fw-normal" style={{ backgroundColor: getTagColor(tag) }}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Other Projects */}
+      <section className="mb-5">
+        <SectionHeading>Other Projects</SectionHeading>
+        <div className="row g-3">
+          {OTHER_PROJECTS.map((p) => (
+            <div key={p.name} className="col-12 col-md-6">
+              <div className="p-3 h-100" style={CARD_STYLE}>
+                <div className="d-flex justify-content-between align-items-start gap-2">
+                  <p className="mb-0 fw-semibold" style={{ ...HEADING_COLOR, fontSize: "0.9rem" }}>{p.name}</p>
+                  <span style={{ color: "#6B7280", fontSize: "0.8rem", whiteSpace: "nowrap" }}>{p.year}</span>
+                </div>
+                {p.detail && <p className="mb-1 mt-1" style={{ ...BODY_COLOR, fontSize: "0.8rem" }}>{p.detail}</p>}
+                <p className="mb-0 mt-1" style={{ color: ACCENT, fontSize: "0.8rem" }}>{p.tech}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Extra-Curriculars */}
+      <section className="mb-5">
+        <SectionHeading>Extra-Curriculars & Roles</SectionHeading>
+        <div className="p-4" style={CARD_STYLE}>
+          <ul className="mb-0 ps-3 d-flex flex-column gap-2">
+            {EXTRACURRICULARS.map((e) => (
+              <li key={e.role} style={BODY_COLOR}>
+                <span className="fw-semibold" style={HEADING_COLOR}>{e.role}</span>
+                {" — "}{e.org}
+                <span style={{ color: "#6B7280", fontSize: "0.85rem" }}> ({e.dates})</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Hobbies */}
+      <section className="mb-5">
+        <SectionHeading>Interests & Hobbies</SectionHeading>
+        <div className="p-4" style={CARD_STYLE}>
+          <p className="mb-0" style={BODY_COLOR}>
+            I'm a big fan of chess and chess variants — I built{" "}
+            <span style={{ color: ACCENT }}>Sovereign Chess</span>, a digital implementation of a 2–4 player
+            variant played on a 16×16 board. Beyond chess, I enjoy game development, having participated in
+            Brakeys Game Jam and built custom physics engines for fun. I'm deeply interested in AI and machine
+            learning, particularly reinforcement learning, which threads through both my academic research and
+            personal projects. I also enjoy robotics and the challenge of bridging software with physical systems.
+            When I'm not coding, you'll likely find me tinkering with a new personal project or following
+            developments in LLMs and autonomous agents.
+          </p>
+        </div>
+      </section>
+
+    </div>
+  );
+}
+
+export default About;

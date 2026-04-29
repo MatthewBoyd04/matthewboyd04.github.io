@@ -44,24 +44,30 @@ function App() {
 export enum Tab{
   Home = "Home",
   About = "About",
-  CV = "CV / Portfolio",
+  CV = "Projects",
   Blog = "Blog"
 }
 
 function App() {
 
   const [selectedTab, setTab] = useState(Tab.Home)
+  const [selectedBlogPostId, setSelectedBlogPostId] = useState<string | null>(null);
 
   const onTabButtonPressed = (tabNumber: number) => {
-
-    //Convert from tabNumbers to TabEnums
     const tabValues = Object.values(Tab);
     const selectedTabValue = tabValues[tabNumber];
-    
-
     setTab(selectedTabValue);
+    setSelectedBlogPostId(null);
     console.log("Tab " + selectedTabValue + " pressed");
   };
+
+  const onBlogPostClick = (postId: string) => {
+    setSelectedBlogPostId(postId);
+    setTab(Tab.Blog);
+  };
+
+  const onSelectPost = (postId: string) => setSelectedBlogPostId(postId);
+  const onClearPost = () => setSelectedBlogPostId(null);
 
   const renderMainPage = () => {
     switch(selectedTab){
@@ -70,9 +76,9 @@ function App() {
       case Tab.About:
         return <About/>
       case Tab.CV:
-        return <CV/>
+        return <CV onBlogPostClick={onBlogPostClick}/>
       case Tab.Blog:
-        return <Blog/>
+        return <Blog selectedPostId={selectedBlogPostId} onSelectPost={onSelectPost} onClearPost={onClearPost}/>
     }
   }
 

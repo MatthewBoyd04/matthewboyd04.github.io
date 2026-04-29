@@ -1,47 +1,65 @@
 .btn-primary {
-  background-color: #8a2a8a !important;
-  border-color: #8a2a8a !important;
+  background-color: #1A1D24 !important;
+  border-color: #1A1D24 !important;
 }
 
 .btn-primary:hover {
-  background-color: #6a2a6a !important;
-  border-color: #6a1a6a !important;
+  background-color: #8B5CF6!important;
+  border-color:#8B5CF6 !important;
 }
 
 .bg-primary {
-  background-color: #A030A0 !important;
+  background-color: #1A1D24!important;
 }
 
 .bg-primary-footer {
-  background-color: #7a2a7a!important;
+  background-color: #0F1117!important;
 }
 
-p{
-    color:white !important;
+body, button, input, select, textarea, .badge, .btn, .card {
+  font-family: 'Space Grotesk', sans-serif;
 }
 
-h1{
-    color:white !important;
+body {
+  font-size: 1.05rem;
+  font-weight: 500;
 }
 
-h2{
-    color:white !important;
+p {
+  color: #C9CCD6 !important;
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.75;
 }
 
-h3{
-    color:white !important;
+h1 {
+  color: #E6E8EE !important;
+  font-weight: 700;
 }
 
-h4{
-    color:white !important;
+h2 {
+  color: #E6E8EE !important;
+  font-weight: 700;
 }
 
-h5{
-    color:white !important;
+h3 {
+  color: #C9CCD6 !important;
+  font-weight: 600;
 }
 
-h6{
-    color:white !important;
+h4 {
+  color: #C9CCD6 !important;
+  font-weight: 600;
+}
+
+h5 {
+  color: #C9CCD6 !important;
+  font-weight: 600;
+}
+
+h6 {
+  color: #C9CCD6 !important;
+  font-weight: 600;
 }
 
 html, body, #root {
