@@ -1,19 +1,57 @@
+:root {
+  --bg-deep:      #0F1117;
+  --bg-card:      #1A1D24;
+  --border:       #2A2F3A;
+  --text-label:   #3D4455;
+  --text-muted:   #6B7280;
+  --text-body:    #C9CCD6;
+  --text-heading: #E6E8EE;
+  --accent:       #8B5CF6;
+  --accent-light: #a78bfa;
+  --accent-green: #22C55E;
+  --btn-blue:     #3B82F6;
+}
+
 .btn-primary {
-  background-color: #1A1D24 !important;
-  border-color: #1A1D24 !important;
+  background-color: var(--bg-card) !important;
+  border-color: var(--bg-card) !important;
 }
 
 .btn-primary:hover {
-  background-color: #8B5CF6!important;
-  border-color:#8B5CF6 !important;
+  background-color: var(--accent) !important;
+  border-color: var(--accent) !important;
+}
+
+.btn-primary.nav-active {
+  background-color: var(--accent) !important;
+  border-color: var(--accent) !important;
 }
 
 .bg-primary {
-  background-color: #1A1D24!important;
+  background-color: var(--bg-card) !important;
 }
 
 .bg-primary-footer {
-  background-color: #0F1117!important;
+  background-color: var(--bg-deep) !important;
+}
+
+.form-control::placeholder,
+.form-select::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 1;
+}
+
+.btn-accent {
+  background-color: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: #fff !important;
+}
+.btn-accent:hover:not(:disabled) {
+  background-color: var(--accent-light) !important;
+  border-color: var(--accent-light) !important;
+}
+.btn-accent:disabled {
+  opacity: 0.6;
 }
 
 body, button, input, select, textarea, .badge, .btn, .card {
@@ -26,41 +64,18 @@ body {
 }
 
 p {
-  color: #C9CCD6 !important;
+  color: var(--text-body) !important;
   font-size: 1.05rem;
   font-weight: 500;
   line-height: 1.75;
 }
 
-h1 {
-  color: #E6E8EE !important;
-  font-weight: 700;
-}
-
-h2 {
-  color: #E6E8EE !important;
-  font-weight: 700;
-}
-
-h3 {
-  color: #C9CCD6 !important;
-  font-weight: 600;
-}
-
-h4 {
-  color: #C9CCD6 !important;
-  font-weight: 600;
-}
-
-h5 {
-  color: #C9CCD6 !important;
-  font-weight: 600;
-}
-
-h6 {
-  color: #C9CCD6 !important;
-  font-weight: 600;
-}
+h1 { color: var(--text-heading) !important; font-weight: 700; }
+h2 { color: var(--text-heading) !important; font-weight: 700; }
+h3 { color: var(--text-body) !important;    font-weight: 600; }
+h4 { color: var(--text-body) !important;    font-weight: 600; }
+h5 { color: var(--text-body) !important;    font-weight: 600; }
+h6 { color: var(--text-body) !important;    font-weight: 600; }
 
 html, body, #root {
   height: 100%;
@@ -75,4 +90,93 @@ html, body, #root {
 
 footer {
   margin-top: auto;
+}
+
+/* Skip link — hidden until focused by keyboard nav */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--accent);
+  color: #fff;
+  padding: 8px 16px;
+  z-index: 9999;
+  font-weight: 600;
+  transition: top 0.1s;
+  text-decoration: none;
+}
+.skip-link:focus {
+  top: 0;
+}
+
+/* Custom focus rings in the purple theme colour */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Page fade-in on route change (U7 / V1) */
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-fade {
+  animation: pageFadeIn 0.18s ease-out;
+}
+
+/* Blog post markdown content */
+.blog-content ul,
+.blog-content ol {
+  color: var(--text-body);
+  line-height: 1.75;
+  padding-left: 1.5rem;
+}
+
+.blog-content li {
+  margin-bottom: 0.25rem;
+}
+
+.blog-content a {
+  color: var(--accent);
+}
+
+.blog-content a:hover {
+  color: var(--accent-light);
+}
+
+/* Print stylesheet — About page prints as a clean résumé */
+@media print {
+  nav, footer, .skip-link, .no-print { display: none !important; }
+
+  body, #root, #root > div {
+    background: #fff !important;
+    color: #000 !important;
+    min-height: unset !important;
+  }
+
+  h1, h2, h3, h4, h5, h6 { color: #000 !important; }
+  p, li, span { color: #333 !important; }
+
+  .card {
+    border: 1px solid #ccc !important;
+    background: #fff !important;
+    break-inside: avoid;
+  }
+
+  a { color: #000 !important; text-decoration: underline !important; }
+
+  .badge { color: #000 !important; background: #eee !important; }
+
+  .page-fade { animation: none !important; }
+}
+
+/* Disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

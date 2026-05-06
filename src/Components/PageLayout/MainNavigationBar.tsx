@@ -1,25 +1,32 @@
-import NavigationButton from "../Misc/NavigationButton";
-import "./MainNavigationBar.css";
+import { NavLink } from 'react-router-dom';
+import './MainNavigationBar.css';
 
-interface Props{ 
-  tabNames: string[]
-  onTabButtonPressed: (tabNumber: number) => void
-}
+const NAV_LINKS = [
+  { label: 'Home', to: '/' },
+  { label: 'About', to: '/about' },
+  { label: 'Projects', to: '/projects' },
+  { label: 'Blog', to: '/blog' },
+];
 
-const MainNavigationBar = ({tabNames, onTabButtonPressed} : Props) => {
-
+const MainNavigationBar = () => {
   return (
-    <div className="container-fluid text-center bg-primary-footer p-1">
+    <nav aria-label="Main navigation" className="container-fluid text-center bg-primary-footer p-1">
       <div className="row">
-        {tabNames.map((tabName, index) => (
-          <div className="col p-1" key={index}>
-            <NavigationButton onButtonPressed={onTabButtonPressed} index={index}>
-              {tabName}
-            </NavigationButton>
+        {NAV_LINKS.map(({ label, to }) => (
+          <div className="col p-1" key={to}>
+            <NavLink
+              to={to}
+              end={to === '/'}
+              className={({ isActive }) =>
+                'btn btn-primary w-100 h-100 fs-3' + (isActive ? ' nav-active' : '')
+              }
+            >
+              {label}
+            </NavLink>
           </div>
         ))}
       </div>
-    </div>
+    </nav>
   );
 };
 

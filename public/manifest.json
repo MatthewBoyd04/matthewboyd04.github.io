@@ -1,0 +1,17 @@
+{
+  "name": "Matthew Boyd | Portfolio",
+  "short_name": "Matthew Boyd",
+  "description": "Portfolio of Matthew Boyd — Software Developer, incoming L4 at Amazon.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0F1117",
+  "theme_color": "#8B5CF6",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

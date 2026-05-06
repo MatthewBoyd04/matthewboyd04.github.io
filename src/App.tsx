@@ -1,92 +1,72 @@
-import ListGroup from "./Components/Misc/ListGroup";
-import Button from "./Components/Misc/Button";
-import MainNavigationBar from "./Components/PageLayout/MainNavigationBar";
-import Footer from "./Components/PageLayout/Footer";
-import { useState } from "react";
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { useEffect, lazy, Suspense } from 'react';
+import MainNavigationBar from './Components/PageLayout/MainNavigationBar';
+import Footer from './Components/PageLayout/Footer';
+import { blogPosts } from './Components/Blog/blogPostsData';
 
-import About from "./Components/Tabs/About";
-import Blog from "./Components/Tabs/Blog";
-import CV from "./Components/Tabs/CV";
-import Home from "./Components/Tabs/Home";
+const Home          = lazy(() => import('./Components/Tabs/Home'));
+const About         = lazy(() => import('./Components/Tabs/About'));
+const CV            = lazy(() => import('./Components/Tabs/CV'));
+const BlogList      = lazy(() => import('./Components/Blog/BlogList'));
+const BlogPostDetail = lazy(() => import('./Components/Blog/BlogPostDetail'));
+const NotFound      = lazy(() => import('./Components/Misc/NotFound'));
 
+const ROUTE_TITLES: Record<string, string> = {
+  '/':         'Matthew Boyd | Portfolio',
+  '/about':    'About | Matthew Boyd',
+  '/projects': 'Projects | Matthew Boyd',
+  '/blog':     'Blog | Matthew Boyd',
+};
 
-/*
-function App() {
-  let cities = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
-  let fruits = ["Apple", "Banana", "Orange", "Mango", "Pineapple"];
-
-  const handleSelectItem = (item: string) => {
-    console.log(item);
-  };
-
-  return (
-    <div>
-      <ListGroup items={cities} heading="Cities" onSelectItem={handleSelectItem} />
-      <ListGroup items={fruits} heading="Fruits" onSelectItem={handleSelectItem}/>
-    </div>
-  );
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => { window.scrollTo(0, 0); }, [pathname]);
+  return null;
 }
 
-*/
-
-/*
-function App() {
-  return (
-    <div>
-      <Alert> 
-        Hello <h1>World</h1>
-      </Alert>
-    </div>
-  );
-}
-*/
-
-export enum Tab{
-  Home = "Home",
-  About = "About",
-  CV = "Projects",
-  Blog = "Blog"
-}
-
-function App() {
-
-  const [selectedTab, setTab] = useState(Tab.Home)
-  const [selectedBlogPostId, setSelectedBlogPostId] = useState<string | null>(null);
-
-  const onTabButtonPressed = (tabNumber: number) => {
-    const tabValues = Object.values(Tab);
-    const selectedTabValue = tabValues[tabNumber];
-    setTab(selectedTabValue);
-    setSelectedBlogPostId(null);
-    console.log("Tab " + selectedTabValue + " pressed");
-  };
-
-  const onBlogPostClick = (postId: string) => {
-    setSelectedBlogPostId(postId);
-    setTab(Tab.Blog);
-  };
-
-  const onSelectPost = (postId: string) => setSelectedBlogPostId(postId);
-  const onClearPost = () => setSelectedBlogPostId(null);
-
-  const renderMainPage = () => {
-    switch(selectedTab){
-      case Tab.Home:
-        return <Home/>
-      case Tab.About:
-        return <About/>
-      case Tab.CV:
-        return <CV onBlogPostClick={onBlogPostClick}/>
-      case Tab.Blog:
-        return <Blog selectedPostId={selectedBlogPostId} onSelectPost={onSelectPost} onClearPost={onClearPost}/>
+function TitleUpdater() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    if (!pathname.startsWith('/blog/')) {
+      document.title = ROUTE_TITLES[pathname] ?? 'Matthew Boyd | Portfolio';
     }
-  }
+  }, [pathname]);
+  return null;
+}
 
+const SUSPENSE_FALLBACK = (
+  <div className="container py-5 text-center">
+    <p style={{ color: 'var(--text-muted)' }}>Loading…</p>
+  </div>
+);
+
+function AnimatedRoutes() {
+  const { pathname } = useLocation();
+  return (
+    <div key={pathname} className="page-fade">
+      <Routes>
+        <Route path="/"          element={<Home />} />
+        <Route path="/about"     element={<About />} />
+        <Route path="/projects"  element={<CV />} />
+        <Route path="/blog"      element={<BlogList posts={blogPosts} />} />
+        <Route path="/blog/:id"  element={<BlogPostDetail />} />
+        <Route path="*"          element={<NotFound />} />
+      </Routes>
+    </div>
+  );
+}
+
+function App() {
   return (
     <div>
-      <MainNavigationBar tabNames={Object.values(Tab)} onTabButtonPressed={onTabButtonPressed}/>
-      <main style={{ flex: 1 }} className="bg-primary">
-        {renderMainPage()}
+      <ScrollToTop />
+      <TitleUpdater />
+      <a href="#main-content" className="skip-link">Skip to content</a>
+      <MainNavigationBar />
+      <main id="main-content" style={{ flex: 1 }} className="bg-primary">
+        <Suspense fallback={SUSPENSE_FALLBACK}>
+          <AnimatedRoutes />
+        </Suspense>
       </main>
       <Footer />
     </div>

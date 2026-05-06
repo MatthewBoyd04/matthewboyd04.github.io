@@ -1,46 +1,31 @@
-import { getTagColor } from "../tagColors";
+import { Link } from 'react-router-dom';
+import { TAG_CATEGORIES, getTagColor } from '../tagColors';
+import { TagIcon } from '../tagIcons';
+import ContactForm from '../Misc/ContactForm';
+import { EXPERIENCE } from './About';
+import { projects } from '../Projects/projectsData';
+import { blogPosts } from '../Blog/blogPostsData';
 
-const SKILLS = [
-  {
-    category: "Languages",
-    items: [
-      "C",
-      "C++",
-      "C#",
-      "Python",
-      "TypeScript",
-      "JavaScript",
-      "HTML / CSS",
-      "MATLAB",
-    ],
-  },
-  {
-    category: "Frameworks & Tools",
-    items: [
-      ".NET",
-      "React",
-      "Unity",
-      "WPF",
-      "Git",
-      "AWS",
-      "Vite",
-      "Cloudflare",
-      "REST APIs",
-    ],
-  },
-  {
-    category: "Concepts",
-    items: [
-      "Reinforcement Learning",
-      "Machine Learning",
-      "Data Structures & Algorithms",
-      "OOP",
-      "CI/CD Pipelines",
-      "Networking",
-      "3D Graphics",
-    ],
-  },
-];
+const allEvidencedTags = new Set([
+  ...EXPERIENCE.flatMap((e) => e.tags),
+  ...projects.flatMap((p) => p.tags),
+  ...blogPosts.flatMap((b) => b.tags),
+]);
+
+const SKILLS = Object.entries(TAG_CATEGORIES)
+  .map(([category, { tags }]) => ({
+    category,
+    items: tags.filter((tag) => allEvidencedTags.has(tag)).sort(),
+  }))
+  .filter(({ items }) => items.length > 0);
+
+const ROLE_STYLE = { color: 'var(--accent)' } as const;
+const CATEGORY_LABEL_STYLE = {
+  color: 'var(--text-label)',
+  fontSize: '0.75rem',
+  letterSpacing: '0.08em',
+} as const;
+const DIVIDER_STYLE = { borderColor: 'var(--border)' } as const;
 
 function Home() {
   return (
@@ -49,29 +34,37 @@ function Home() {
       <div className="row mb-5">
         <div className="col-lg-8 mx-auto text-center">
           <h1 className="display-4 fw-bold">Matthew Boyd</h1>
-          <h4 style={{ color: "#8B5CF6" }}>
+          <p className="fs-5 fw-semibold mt-1" style={ROLE_STYLE}>
             Software Developer · Incoming L4 @ Amazon
-          </h4>
-          <p className="lead mt-3">
-            MEng Computer Systems Engineering student at Sheffield, dissertation
-            in Multi-Agent Reinforcement Learning. Ex-SDE Intern at Amazon,
-            Junior Developer at Digital CNC, and CNC Software Lead at the RAMS
-            Lab. I enjoy tackling hard problems — from RL-tuned CNC machines to
-            Prime Video diagnostics — and shipping things that actually work.
           </p>
-          <div className="d-flex justify-content-center gap-3 mt-4">
+          <p className="lead mt-3">
+            MEng Computer Systems Engineering student at the University of Sheffield, with a
+            dissertation in Multi-Agent Reinforcement Learning for Search and Rescue. Ex-SDE Intern
+            at Amazon, Junior Developer at Digital CNC. I enjoy tackling hard problems and
+            developing projects across the full stack, both for fun (such as my soveriegn chess
+            variant and gamejam appearances) and for more pratical applications (such as my CNC
+            control software and my work on MARL research).
+          </p>
+          <div className="d-flex justify-content-center gap-3 mt-4 flex-wrap">
             <a
               href="https://github.com/MatthewBoyd04"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Matthew Boyd on GitHub"
               className="btn btn-primary"
             >
               GitHub
             </a>
             <a
-              href="mailto:matthewboydd04@gmail.com"
-              className="btn btn-outline-secondary"
+              href="https://www.linkedin.com/in/matthewboyd04/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Matthew Boyd on LinkedIn"
+              className="btn btn-primary"
             >
+              LinkedIn
+            </a>
+            <a href="mailto:matthewboydd04@gmail.com" className="btn btn-outline-secondary">
               Contact Me
             </a>
           </div>
@@ -85,28 +78,27 @@ function Home() {
           <div className="d-flex flex-column gap-4">
             {SKILLS.map(({ category, items }) => (
               <div key={category}>
-                <p
-                  className="mb-2 text-uppercase fw-semibold"
-                  style={{
-                    color: "#3D4455",
-                    fontSize: "0.75rem",
-                    letterSpacing: "0.08em",
-                  }}
-                >
+                <p className="mb-2 text-uppercase fw-semibold" style={CATEGORY_LABEL_STYLE}>
                   {category}
                 </p>
                 <div className="d-flex flex-wrap gap-2">
                   {items.map((skill) => (
-                    <span
+                    <Link
                       key={skill}
+                      to={{ pathname: '/projects', search: `?tag=${encodeURIComponent(skill)}` }}
                       className="badge fs-6 fw-normal py-2 px-3"
                       style={{
                         backgroundColor: getTagColor(skill),
-                        color: "#fff",
+                        color: 'var(--text-heading)',
+                        textDecoration: 'none',
+                        cursor: 'pointer',
+                        display: 'inline-flex',
+                        alignItems: 'center',
                       }}
                     >
+                      <TagIcon tag={skill} />
                       {skill}
-                    </span>
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -115,50 +107,35 @@ function Home() {
         </div>
       </div>
 
-      {/* About */}
+      {/* About teaser */}
       <div className="row mb-5">
         <div className="col-12">
           <h2 className="mb-3">About</h2>
           <p>
-            I build things for the web and beyond. My work ranges from
-            browser-based game implementations to full-stack applications,
-            always with a focus on clean architecture and a good user
-            experience.
+            Fourth-year MEng student, incoming Amazon L4, and hobbyist game developer. I work across
+            the full stack — from RL research and CNC control software to web games created with
+            React and hosted with Cloudflare.
           </p>
-          <p>
-            When I'm not writing code, I'm probably thinking about chess
-            variants, exploring new frameworks, or figuring out how to deploy
-            the next project with zero cold starts.
-          </p>
+          <Link to="/about" className="btn btn-outline-secondary btn-sm">
+            Full profile →
+          </Link>
         </div>
       </div>
 
-      <hr style={{ borderColor: "#2A2F3A" }} />
+      <hr style={DIVIDER_STYLE} />
 
       {/* Contact */}
       <div className="row mt-5">
         <div className="col-12">
           <h2 className="mb-3">Get In Touch</h2>
-          <p>
-            I'm always open to interesting projects and conversations. Feel free
-            to reach out.
-          </p>
-          <div className="d-flex gap-3 mt-3">
-            <a
-              href="https://github.com/MatthewBoyd04"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn-primary"
-            >
-              GitHub
-            </a>
-            <a
-              href="mailto:matthewboydd04@gmail.com"
-              className="btn btn-outline-secondary"
-            >
+          <p>I'm always open to interesting projects and conversations.</p>
+          <ContactForm />
+          <p className="mt-3" style={{ fontSize: '0.9rem' }}>
+            Or reach me directly:{' '}
+            <a href="mailto:matthewboydd04@gmail.com" style={{ color: 'var(--accent)' }}>
               matthewboydd04@gmail.com
             </a>
-          </div>
+          </p>
         </div>
       </div>
     </div>

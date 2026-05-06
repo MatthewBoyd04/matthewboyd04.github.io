@@ -1,43 +1,51 @@
-const TAG_COLORS: Record<string, string> = {
-  // Languages — Neon Violet
-  C: "#8B5CF6",
-  "C++": "#8B5CF6",
-  "C#": "#8B5CF6",
-  TypeScript: "#8B5CF6",
-  JavaScript: "#8B5CF6",
-  Python: "#8B5CF6",
-  MATLAB: "#8B5CF6",
-  Matlab: "#8B5CF6",
-  "HTML / CSS": "#8B5CF6",
-  // Frameworks / Libraries — Vibrant Pink
-  React: "#c648ec",
-  FastAPI: "#c648ec",
-  Bootstrap: "#c648ec",
-  ".NET": "#c648ec",
-  WPF: "#c648ec",
-  Unity: "#c648ec",
-  StableBaselines3: "#c648ec",
-  PettingZoo: "#c648ec",
-  TKinter: "#c648ec",
-  numpy: "#c648ec",
-  // Tools — Rich Violet
-  Cloudflare: "#6D28D9",
-  Git: "#6D28D9",
-  Vite: "#6D28D9",
-  AWS: "#6D28D9",
-  "REST APIs": "#6D28D9",
-  "Game Dev": "#6D28D9",
-  // Concepts — Deep Indigo
-  "Reinforcement Learning": "#4C1D95",
-  "Machine Learning": "#4C1D95",
-  "Data Structures & Algorithms": "#4C1D95",
-  OOP: "#4C1D95",
-  "CI/CD": "#4C1D95",
-  "CI/CD Pipelines": "#4C1D95",
-  Networking: "#4C1D95",
-  "3D Graphics": "#4C1D95",
+type TagCategory = {
+  color: string;
+  tags: string[];
 };
 
+export const TAG_CATEGORIES: Record<string, TagCategory> = {
+  Languages: {
+    color: "#8B5CF6",
+    tags: ["C", "C++", "C#", "TypeScript", "JavaScript", "Python", "MATLAB", "Matlab", "HTML / CSS"],
+  },
+  Frameworks: {
+    color: "#c648ec",
+    tags: ["React", "FastAPI", "Bootstrap", ".NET", "WPF", "Unity", "StableBaselines3", "PettingZoo", "TKinter", "numpy", "Vue"],
+  },
+  Tools: {
+    color: "#6D28D9",
+    tags: ["Cloudflare", "Git", "Vite", "AWS", "REST APIs", "GitHub Pages", "GenAI"],
+  },
+  Concepts: {
+    color: "#4C1D95",
+    tags: ["Reinforcement Learning", "MARL", "Machine Learning", "Data Structures & Algorithms", "OOP", "CI/CD Pipelines", "Networking", "3D Graphics"],
+  },
+};
+
+const DEFAULT_COLOR = "#2A2F3A";
+const CATEGORY_ORDER = ["Languages", "Frameworks", "Tools", "Concepts"];
+
 export function getTagColor(tag: string): string {
-  return TAG_COLORS[tag] ?? "#2A2F3A";
+  for (const category of Object.values(TAG_CATEGORIES)) {
+    if (category.tags.includes(tag)) return category.color;
+  }
+  return DEFAULT_COLOR;
+}
+
+function getTagCategory(tag: string): string | null {
+  for (const [category, { tags }] of Object.entries(TAG_CATEGORIES)) {
+    if (tags.includes(tag)) return category;
+  }
+  return null;
+}
+
+export function sortTags(tags: string[]): string[] {
+  return [...tags].sort((a, b) => {
+    const idxA = CATEGORY_ORDER.indexOf(getTagCategory(a) ?? "");
+    const idxB = CATEGORY_ORDER.indexOf(getTagCategory(b) ?? "");
+    const orderA = idxA === -1 ? CATEGORY_ORDER.length : idxA;
+    const orderB = idxB === -1 ? CATEGORY_ORDER.length : idxB;
+    if (orderA !== orderB) return orderA - orderB;
+    return a.localeCompare(b);
+  });
 }
