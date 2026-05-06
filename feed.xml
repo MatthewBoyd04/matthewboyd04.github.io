@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Matthew Boyd | Blog</title>
+    <link>https://matthewboyd04.github.io/</link>
+    <atom:link href="https://matthewboyd04.github.io/feed.xml" rel="self" type="application/rss+xml"/>
+    <description>Matthew Boyd's blog — software development, RL research, and projects.</description>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 06 May 2026 08:15:41 GMT</lastBuildDate>
+    <item>
+      <title>Multi-Agent Reinforcement Learning for Search &amp; Rescue: An MEng Dissertation Overview</title>
+      <link>https://matthewboyd04.github.io/#/blog/dissertation-overview-blog</link>
+      <guid isPermaLink="true">https://matthewboyd04.github.io/#/blog/dissertation-overview-blog</guid>
+      <pubDate>Wed, 06 May 2026 00:00:00 GMT</pubDate>
+      <description>How I created MARL SAR algorithms and environments, The testing framework and the results i found.</description>
+    </item>
+    <item>
+      <title>A Month of using Claude Code</title>
+      <link>https://matthewboyd04.github.io/#/blog/using-claude-code</link>
+      <guid isPermaLink="true">https://matthewboyd04.github.io/#/blog/using-claude-code</guid>
+      <pubDate>Wed, 06 May 2026 00:00:00 GMT</pubDate>
+      <description>What I learned using claude code, Why i started, and will I continue?</description>
+    </item>
+    <item>
+      <title>Building Sovereign Chess: A Multiplayer Chess Variant with 12 Colours and Changing Piece Owners</title>
+      <link>https://matthewboyd04.github.io/#/blog/sovereign-chess</link>
+      <guid isPermaLink="true">https://matthewboyd04.github.io/#/blog/sovereign-chess</guid>
+      <pubDate>Wed, 29 Apr 2026 00:00:00 GMT</pubDate>
+      <description>How I built a digital implementation of Sovereign Chess — a multiplayer chess variant with 12 colours and dynamic piece ownership — using React, TypeScript, Python, and Cloudflare.</description>
+    </item>
+  </channel>
+</rss>
