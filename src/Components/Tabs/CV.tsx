@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import ProjectCard from '../Projects/ProjectCard';
 import { projects } from '../Projects/projectsData';
@@ -6,7 +7,7 @@ import { TagIcon } from '../tagIcons';
 
 const ALL_TAGS = sortTags(Array.from(new Set(projects.flatMap((p) => p.tags))));
 
-const CHIP_BASE: React.CSSProperties = {
+const CHIP_BASE: CSSProperties = {
   display: 'inline-flex',
   alignItems: 'center',
   gap: '4px',

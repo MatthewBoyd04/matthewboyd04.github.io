@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import { getTagColor, sortTags } from '../tagColors';
 import { TagIcon } from '../tagIcons';
 import { projects } from '../Projects/projectsData';
@@ -190,7 +191,7 @@ const EXTRACURRICULARS = [
   },
 ];
 
-function SectionHeading({ children }: { children: React.ReactNode }) {
+function SectionHeading({ children }: { children: ReactNode }) {
   return (
     <div className="d-flex align-items-center gap-3 mb-4">
       <h2 className="mb-0 fw-bold" style={HEADING_COLOR}>

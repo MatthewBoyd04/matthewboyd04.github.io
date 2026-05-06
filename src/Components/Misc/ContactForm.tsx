@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { FormEvent } from 'react';
 
 const ENDPOINT = 'https://api.web3forms.com/submit';
 
@@ -16,7 +17,7 @@ const LABEL_STYLE = { color: 'var(--text-muted)', fontSize: '0.85rem' } as const
 function ContactForm() {
   const [status, setStatus] = useState<Status>('idle');
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus('submitting');
     const form = e.currentTarget;

@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import type { CSSProperties } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { BlogPost } from './blogPostsData';
 import { getTagColor, sortTags } from '../tagColors';
@@ -22,7 +23,7 @@ const INPUT_STYLE = {
   maxWidth: '360px',
 } as const;
 
-const CHIP_BASE: React.CSSProperties = {
+const CHIP_BASE: CSSProperties = {
   display: 'inline-flex',
   alignItems: 'center',
   gap: '4px',
@@ -41,8 +42,16 @@ function BlogList({ posts }: BlogListProps) {
 
   const ALL_TAGS = sortTags(Array.from(new Set(posts.flatMap((p) => p.tags))));
 
-  const [query, setQuery] = useState('');
-  const [page, setPage]   = useState(0);
+  const [query, setQuery]     = useState('');
+  const [page, setPage]       = useState(0);
+  const [prevQuery, setPrevQuery] = useState('');
+  const [prevTag, setPrevTag]     = useState(activeTag);
+
+  if (query !== prevQuery || activeTag !== prevTag) {
+    setPrevQuery(query);
+    setPrevTag(activeTag);
+    setPage(0);
+  }
 
   const q = query.toLowerCase().trim();
   const filtered = posts.filter((p) => {
@@ -57,8 +66,6 @@ function BlogList({ posts }: BlogListProps) {
 
   const totalPages = Math.ceil(filtered.length / POSTS_PER_PAGE);
   const visible    = filtered.slice(page * POSTS_PER_PAGE, (page + 1) * POSTS_PER_PAGE);
-
-  useEffect(() => { setPage(0); }, [query, activeTag]);
 
   const formatDate = (iso: string) =>
     new Date(iso).toLocaleDateString('en-US', {
